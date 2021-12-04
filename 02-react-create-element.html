@@ -14,12 +14,24 @@
   </style>
   <body>
     <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@17/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
+
     <script type="text/javascript">
-      const root = document.getElementById("root");
-      const element = document.createElement("div");
-      element.textContent = "child element";
-      element.className = "child";
-      root.appendChild(element);
+      const rootElement = document.getElementById("root");
+      const element = React.createElement("div", {
+        children: React.createElement("span", null, "Hello", " world"),
+        className: "container",
+      });
+      console.log(element);
+      ReactDOM.render(element, rootElement);
     </script>
   </body>
 </html>

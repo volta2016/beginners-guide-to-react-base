@@ -75,8 +75,7 @@ O podemos pasarle props children para pasar el contenido directamente dentro del
     <Message children="Good Bye World" />
   </div>
   ); console.log(<div>hello world</div>); console.log(
-  <Message>Hello World</Message>); ReactDOM.render(element,
-  document.getElementById("root"));
+  <Message>Hello World</Message>); ReactDOM.render(element, document.getElementById("root"));
 </script>
 ```
 

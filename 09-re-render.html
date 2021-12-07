@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Re-render</title>
+  </head>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+  </style>
+  <body>
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@17/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      function tick() {
+        const time = new Date().toLocaleTimeString();
+
+        const element = (
+          <div>
+            <div>hello</div>
+            <input value={time} />
+            <input value={time} />
+          </div>
+        );
+
+        ReactDOM.render(element, rootElement);
+      }
+
+      // tick();
+      setInterval(tick, 1000);
+    </script>
+  </body>
+</html>

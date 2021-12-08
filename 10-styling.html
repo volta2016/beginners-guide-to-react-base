@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Style React Components with className and inline Styles</title>
+  </head>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+
+    .box {
+      border: 1px solid #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    .box--large {
+      width: 270px;
+      height: 270px;
+    }
+    .box--medium {
+      width: 180px;
+      height: 180px;
+    }
+    .box--small {
+      width: 90px;
+      height: 90px;
+    }
+  </style>
+  <body>
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@17/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      function Box({ className = "", style, size, ...rest }) {
+        const sizeClassName = size ? `box--${size}` : "";
+        return (
+          <div
+            className={`box ${className} ${sizeClassName}`}
+            style={{ ...style, fontStyle: "italic" }}
+            {...rest}
+          />
+        );
+      }
+
+      const element = (
+        <div>
+          <Box size="small" style={{ backgroundColor: "lightBlue" }}>
+            small lightBlue box
+          </Box>
+          <Box size="medium" style={{ backgroundColor: "pink" }}>
+            medium pink box
+          </Box>
+          <Box size="large" style={{ backgroundColor: "orange" }}>
+            large orange box
+          </Box>
+        </div>
+      );
+
+      ReactDOM.render(element, document.getElementById("root"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dom-refs</title>
+  </head>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+  </style>
+  <body>
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@17/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <script type="text/babel">
+      /*  Child component */
+      function Child() {
+        console.log("%c    Child: render start", "color: MediumSpringGreen");
+
+        const [count, setCount] = React.useState(() => {
+          console.log("%c    Child: useState callback", "color: tomato");
+          return 0;
+        });
+
+        React.useEffect(() => {
+          console.log("%c    Child: useEffect no deps", "color: LightCoral");
+          return () => {
+            console.log(
+              "%c    Child: useEffect no deps cleanup",
+              "color: LightCoral"
+            );
+          };
+        });
+
+        React.useEffect(() => {
+          console.log(
+            "%c    Child: useEffect empty deps",
+            "color: MediumTurquoise"
+          );
+          return () => {
+            console.log(
+              "%c    Child: useEffect empty deps cleanup",
+              "color: MediumTurquoise"
+            );
+          };
+        }, []);
+
+        React.useEffect(() => {
+          console.log("%c    Child: useEffect with dep", "color: HotPink");
+          return () => {
+            console.log(
+              "%c    Child: useEffect with dep cleanup",
+              "color: HotPink"
+            );
+          };
+        }, [count]);
+
+        const element = (
+          <button
+            onClick={() => setCount((previousCount) => previousCount + 1)}
+          >
+            {count}
+          </button>
+        );
+
+        console.log("%c    Child: render end", "color: MediumSpringGreen");
+
+        return element;
+      }
+
+      /* app */
+      function App() {
+        console.log("%cApp: render start", "color: MediumSpringGreen");
+
+        const [showChild, setShowChild] = React.useState(() => {
+          console.log("%cApp: useState callback", "color: tomato");
+          return false;
+        });
+
+        React.useEffect(() => {
+          console.log("%cApp: useEffect no deps", "color: LightCoral");
+          return () => {
+            console.log(
+              "%cApp: useEffect no deps cleanup",
+              "color: LightCoral"
+            );
+          };
+        });
+
+        React.useEffect(() => {
+          console.log("%cApp: useEffect empty deps", "color: MediumTurquoise");
+          return () => {
+            console.log(
+              "%cApp: useEffect empty deps cleanup",
+              "color: MediumTurquoise"
+            );
+          };
+        }, []);
+
+        React.useEffect(() => {
+          console.log("%cApp: useEffect with dep", "color: HotPink");
+          return () => {
+            console.log("%cApp: useEffect with dep cleanup", "color: HotPink");
+          };
+        }, [showChild]);
+
+        const element = (
+          <>
+            <label>
+              <input
+                type="checkbox"
+                checked={showChild}
+                onChange={(e) => setShowChild(e.target.checked)}
+              />{" "}
+              show child
+            </label>
+            <div
+              style={{
+                padding: 10,
+                margin: 10,
+                height: 30,
+                width: 30,
+                border: "solid",
+              }}
+            >
+              {showChild ? <Child /> : null}
+            </div>
+          </>
+        );
+
+        console.log("%cApp: render end", "color: MediumSpringGreen");
+
+        return element;
+      }
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

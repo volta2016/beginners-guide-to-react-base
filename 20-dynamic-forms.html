@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dom-refs</title>
+    <title>20-dynamic-forms</title>
   </head>
   <style>
     body {
@@ -27,22 +27,29 @@
     <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
     <script type="text/babel">
       function UserNameForm() {
+        const [username, setUsername] = React.useState("");
+        const isLowerCase = username === username.toLowerCase();
+        const error = isLowerCase ? null : "Username must be lower case";
+
         function hadleSubmit(event) {
           event.preventDefault();
-          console.dir(event.target);
-
-          const username = event.target.elements.usernameInput.value;
-
           alert(`You entered: ${username}`);
+        }
+
+        function handleChange(event) {
+          setUsername(event.target.value);
         }
 
         return (
           <form onSubmit={hadleSubmit}>
             <div>
               <label htmlFor="usernameInput">Username:</label>
-              <input type="text" id="usernameInput" />
+              <input type="text" id="usernameInput" onChange={handleChange} />
             </div>
-            <button type="submit">Submit</button>
+            <div style={{ color: "red" }}>{error}</div>
+            <button type="submit" disabled={Boolean(error)} type="submit">
+              Submit
+            </button>
           </form>
         );
       }

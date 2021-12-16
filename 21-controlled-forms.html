@@ -25,5 +25,37 @@
     ></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <script type="text/babel">
+      function UserNameForm() {
+        const [username, setUsername] = React.useState("");
+
+        function hadleSubmit(event) {
+          event.preventDefault();
+          alert(`You entered: ${username}`);
+        }
+
+        function handleChange(event) {
+          setUsername(event.target.value.toLowerCase());
+        }
+
+        return (
+          <form onSubmit={hadleSubmit}>
+            <div>
+              <label htmlFor="usernameInput">Username:</label>
+              <input
+                type="text"
+                id="usernameInput"
+                onChange={handleChange}
+                value={username}
+              />
+            </div>
+
+            <button type="submit">Submit</button>
+          </form>
+        );
+      }
+
+      ReactDOM.render(<UserNameForm />, document.getElementById("root"));
+    </script>
   </body>
 </html>

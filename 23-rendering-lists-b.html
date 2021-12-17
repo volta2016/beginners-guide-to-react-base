@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>23-rendering-lists-b</title>
+  </head>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+  </style>
+  <body>
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@17/umd/react.production.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      const allItems = [
+        { id: "a", value: "apple" },
+        { id: "o", value: "orange" },
+        { id: "g", value: "grape" },
+        { id: "p", value: "pear" },
+      ];
+
+      function FocusDemo() {
+        const [items, setItems] = React.useState([
+          { id: "a", value: "apple" },
+          { id: "o", value: "orange" },
+          { id: "g", value: "grape" },
+          { id: "p", value: "pear" },
+        ]);
+
+        React.useEffect(() => {
+          const interval = setInterval(() => {
+            setItems(shuffle(items));
+          }, 1000);
+          return () => clearInterval(interval);
+        }, []);
+
+        return (
+          <div>
+            <div>
+              <h1>Without Key</h1>
+              {items.map((item) => (
+                <input value={item.value} />
+              ))}
+            </div>
+            <div>
+              <h2>With Key as Index</h2>
+              {items.map((item, index) => (
+                <input key={index} value={item.value} />
+              ))}
+            </div>
+            <div>
+              <h2>With Key</h2>
+              {items.map((item) => (
+                <input key={item.id} value={item.value} />
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      function shuffle(originalArray) {
+        const array = [...originalArray];
+        let currentIndex = array.length;
+        let temporaryValue;
+        let randomIndex;
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+        return array;
+      }
+
+      ReactDOM.render(<FocusDemo />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
